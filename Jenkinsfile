@@ -13,6 +13,12 @@ pipeline {
             }
         }
 
-       
+        stage('Build Docker Image') {
+            steps {
+                script{
+                    bat 'docker build -t lab3/lab3-devops .'
+                }
+            }
+        }
     }
 }
