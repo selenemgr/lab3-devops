@@ -1,29 +1,18 @@
 pipeline {
     agent any
+    tools {
+        maven 'MAVEN3'
+    }
 
     stages {
-        stage('Checkout') {
+        stage('Build Maven') {
             steps {
-                git 'https://github.com/selenemgr/Lab2-devops.git'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/selenemgr/lab3-devops.git']])
+
+                bat 'mvn clean install'
             }
         }
 
-        stage('Build') {
-            steps {
-                bat 'mvn clean package'  // Use 'bat' instead of 'sh'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'mvn test'  // Use 'bat' for Windows instead of 'sh'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploying application..."
-            }
-        }
+       
     }
 }
