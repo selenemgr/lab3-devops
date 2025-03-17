@@ -20,5 +20,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                script{
+                    bat 'docker login -u smunozgo -p $env.DOCKER_PASSWORD'
+                    bat 'docker push lab3/lab3-devops'
+                }
+            }
+        }
     }
 }
